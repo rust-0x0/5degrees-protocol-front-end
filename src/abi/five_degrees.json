@@ -1,0 +1,918 @@
+{
+  "source": {
+    "hash": "0xe05270d77806bd82bf8cb068163b2d35eb617f96879cccd192f77b8806c3ff96",
+    "language": "ink! 3.3.0",
+    "compiler": "rustc 1.62.0-nightly"
+  },
+  "contract": {
+    "name": "five_degrees",
+    "version": "0.1.0",
+    "authors": [
+      "lee rust.0x0@gmail.com"
+    ]
+  },
+  "V3": {
+    "spec": {
+      "constructors": [
+        {
+          "args": [
+            {
+              "label": "version",
+              "type": {
+                "displayName": [
+                  "u32"
+                ],
+                "type": 9
+              }
+            },
+            {
+              "label": "code_hash",
+              "type": {
+                "displayName": [
+                  "Hash"
+                ],
+                "type": 10
+              }
+            }
+          ],
+          "docs": [
+            "Constructor that initializes the `bool` value to the given `init_value`."
+          ],
+          "label": "new",
+          "payable": false,
+          "selector": "0x9bae9d5e"
+        }
+      ],
+      "docs": [],
+      "events": [],
+      "messages": [
+        {
+          "args": [
+            {
+              "label": "name",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "image",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "properties",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " A message that can be called on instantiated contracts.",
+            " This one flips the value of the stored `bool` from `true`",
+            " to `false` and vice versa."
+          ],
+          "label": "set_protocol_info",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xad21a598"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "base_info",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [],
+            "type": 11
+          },
+          "selector": "0x0e938124"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "info",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "TokenURIInfo"
+            ],
+            "type": 4
+          },
+          "selector": "0x0190e5ac"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "metrics",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [],
+            "type": 12
+          },
+          "selector": "0x1d3208fb"
+        },
+        {
+          "args": [
+            {
+              "label": "proxy",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "set_pay_proxy",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xfbd41b59"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "pay_proxy",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "AccountId"
+            ],
+            "type": 1
+          },
+          "selector": "0x6bfdf2c6"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "contract_address",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "AccountId"
+            ],
+            "type": 1
+          },
+          "selector": "0x09c19fa9"
+        },
+        {
+          "args": [
+            {
+              "label": "name",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "image",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "properties",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [],
+          "label": "set_info",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x4a382092"
+        },
+        {
+          "args": [
+            {
+              "label": "new_max",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "label": "increase_max_supply",
+          "mutates": true,
+          "payable": true,
+          "returnType": null,
+          "selector": "0xfbc271c8"
+        },
+        {
+          "args": [
+            {
+              "label": "new_max",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [],
+          "label": "decrease_max_supply",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x40b4dad4"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "mint",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xcfdd9aa2"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "mint_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x36abde61"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 13
+              }
+            }
+          ],
+          "docs": [],
+          "label": "mint_batch",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x7e4353fc"
+        },
+        {
+          "args": [
+            {
+              "label": "accounts",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 13
+              }
+            }
+          ],
+          "docs": [],
+          "label": "mint_batch_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x589fdd8a"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "burn",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xb1efc17b"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "burn_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x36ce1228"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 13
+              }
+            }
+          ],
+          "docs": [],
+          "label": "burn_batch",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xe1900cd8"
+        },
+        {
+          "args": [
+            {
+              "label": "accounts",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 13
+              }
+            }
+          ],
+          "docs": [],
+          "label": "burn_batch_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xe3eca242"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 6
+              }
+            },
+            {
+              "label": "data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 14
+              }
+            }
+          ],
+          "docs": [],
+          "label": "safe_transfer_from",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x8c474972"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 13
+              }
+            },
+            {
+              "label": "values",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 15
+              }
+            },
+            {
+              "label": "data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 14
+              }
+            }
+          ],
+          "docs": [],
+          "label": "safe_batch_transfer_from",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x015b7fee"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "balance_of",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Balance"
+            ],
+            "type": 6
+          },
+          "selector": "0x0f755a56"
+        },
+        {
+          "args": [
+            {
+              "label": "owners",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 13
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 13
+              }
+            }
+          ],
+          "docs": [],
+          "label": "balance_of_batch",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 15
+          },
+          "selector": "0x0ef0e2a2"
+        }
+      ]
+    },
+    "storage": {
+      "struct": {
+        "fields": [
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "_uri"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0100000000000000000000000000000000000000000000000000000000000000",
+                "ty": 8
+              }
+            },
+            "name": "_token_supply"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0200000000000000000000000000000000000000000000000000000000000000",
+                "ty": 8
+              }
+            },
+            "name": "_total_balance"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                "ty": 1
+              }
+            },
+            "name": "pay_proxy"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0400000000000000000000000000000000000000000000000000000000000000",
+                "ty": 1
+              }
+            },
+            "name": "contract_addr"
+          }
+        ]
+      }
+    },
+    "types": [
+      {
+        "id": 0,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 7,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 1
+            },
+            {
+              "name": "V",
+              "type": 4
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 1,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 2,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "AccountId"
+          ]
+        }
+      },
+      {
+        "id": 2,
+        "type": {
+          "def": {
+            "array": {
+              "len": 32,
+              "type": 3
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "type": {
+          "def": {
+            "primitive": "u8"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "name",
+                  "type": 5,
+                  "typeName": "String"
+                },
+                {
+                  "name": "image",
+                  "type": 5,
+                  "typeName": "String"
+                },
+                {
+                  "name": "max_supply",
+                  "type": 6,
+                  "typeName": "u128"
+                },
+                {
+                  "name": "properties",
+                  "type": 5,
+                  "typeName": "String"
+                }
+              ]
+            }
+          },
+          "path": [
+            "five_degrees",
+            "five_degrees",
+            "TokenURIInfo"
+          ]
+        }
+      },
+      {
+        "id": 5,
+        "type": {
+          "def": {
+            "primitive": "str"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "type": {
+          "def": {
+            "primitive": "u128"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 2,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_primitives",
+            "Key"
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 7,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 1
+            },
+            {
+              "name": "V",
+              "type": 6
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 9,
+        "type": {
+          "def": {
+            "primitive": "u32"
+          }
+        }
+      },
+      {
+        "id": 10,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 2,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "Hash"
+          ]
+        }
+      },
+      {
+        "id": 11,
+        "type": {
+          "def": {
+            "tuple": [
+              5,
+              5
+            ]
+          }
+        }
+      },
+      {
+        "id": 12,
+        "type": {
+          "def": {
+            "tuple": [
+              6,
+              6
+            ]
+          }
+        }
+      },
+      {
+        "id": 13,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 1
+            }
+          }
+        }
+      },
+      {
+        "id": 14,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 3
+            }
+          }
+        }
+      },
+      {
+        "id": 15,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 6
+            }
+          }
+        }
+      }
+    ]
+  }
+}
