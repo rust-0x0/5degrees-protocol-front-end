@@ -16,12 +16,9 @@ import BlockNumber from './BlockNumber'
 import Metadata from './Metadata'
 import NodeInfo from './NodeInfo'
 import FiveFollowingList from './FiveFollowingList'
-import FiveMaxSupply from './FiveMaxSupply'
-import FiveMetrics from './FiveMetrics'
 import FiveDegrees from './FiveDegrees'
 import FiveProperties from './FiveProperties'
-import FiveTransferFrom from './FiveTransferFrom'
-import FiveBatchTransferFrom from './FiveBatchTransferFrom'
+
 import Events from './Events'
 
 function Main() {
@@ -75,16 +72,8 @@ function Main() {
             <FiveFollowingList />
           </Grid.Row>
           <Grid.Row>
-            <FiveMaxSupply />
-            <FiveMetrics />
-          </Grid.Row>
-          <Grid.Row>
             <FiveDegrees />
             <FiveProperties />
-          </Grid.Row>
-          <Grid.Row>
-            <FiveTransferFrom />
-            <FiveBatchTransferFrom />
           </Grid.Row>
           <Grid.Row>
             <Events />

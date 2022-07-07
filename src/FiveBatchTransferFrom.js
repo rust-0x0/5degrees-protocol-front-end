@@ -30,7 +30,7 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
-      <h1>FiveTransferFrom</h1>
+      <h1>BatchTransferFrom</h1>
       <Form>
         <Form.Field>
           <Dropdown

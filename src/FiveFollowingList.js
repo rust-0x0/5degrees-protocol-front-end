@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Grid, Label } from 'semantic-ui-react'
+import { Table, Grid, Label, Image } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import { TxButton } from './substrate-lib/components'
 
 export default function Main(props) {
   const [status, setStatus] = useState(null)
+  const [previousAddress, setPreviousAddress] = useState('')
   const { api, keyring, contract, currentAccount } = useSubstrateState()
   const accounts = keyring.getPairs()
   const [followings, setFollowings] = useState([])
@@ -30,12 +31,13 @@ export default function Main(props) {
         let image = output[1]
         let followed = false
         {
-          let { output } = await contract['fiveDegrees'].query['balanceOf'](
+          let {unsubs, output } = await contract['fiveDegrees'].query['balanceOf'](
             currentAccount.address,
             { value: 0, gasLimit: -1 },
             currentAccount.address,
             account.address
           )
+          unsub=unsubs
           followed = Number(output.toString()) > Number(0)
         }
         followingsMap.push({
@@ -46,6 +48,7 @@ export default function Main(props) {
         })
       }
       setFollowings(followingsMap)
+      setPreviousAddress(currentAccount.address)
     }
 
     asyncFetch()
@@ -53,11 +56,19 @@ export default function Main(props) {
     return () => {
       unsub && unsub()
     }
-  }, [api, accounts, contract, currentAccount, setFollowings])
+  }, [
+    api,
+    accounts,
+    contract,
+    currentAccount,
+    previousAddress,
+    setPreviousAddress,
+    setFollowings,
+  ])
 
   return (
     <Grid.Column>
-      <h1>followings</h1>
+      <h1>Followings</h1>
       {followings.length === 0 ? (
         <Label basic color="yellow">
           No followings to be shown
@@ -68,6 +79,9 @@ export default function Main(props) {
             <Table.Row>
               <Table.Cell width={3} textAlign="right">
                 <strong>Name</strong>
+              </Table.Cell>
+              <Table.Cell width={3} textAlign="right">
+                <strong>Image</strong>
               </Table.Cell>
               <Table.Cell width={10}>
                 <strong>Address</strong>
@@ -80,6 +94,9 @@ export default function Main(props) {
               <Table.Row key={account.address}>
                 <Table.Cell width={3} textAlign="right">
                   {account.name}
+                </Table.Cell>
+                <Table.Cell width={3} textAlign="right">
+                  <Image src={account.image} size="mini" />
                 </Table.Cell>
                 <Table.Cell width={10}>
                   <span style={{ display: 'inline-block', minWidth: '31em' }}>

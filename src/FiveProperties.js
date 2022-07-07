@@ -2,11 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Table, Grid, Button, Input, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import { TxButton } from './substrate-lib/components'
+import FiveMaxSupply from './FiveMaxSupply'
+import FiveMetrics from './FiveMetrics'
 
 export default function Main(props) {
   const [status, setStatus] = useState(null)
   const { contract, currentAccount } = useSubstrateState()
-  const [info, setInfo] = useState({ name: '', image: '', properties: {} })
+  const [info, setInfo] = useState({
+    name: '',
+    image: '',
+    maxSupply: 2022,
+    properties: {},
+  })
   const [formState, setFormState] = useState({ key: '', value: '' })
   const [previousAddress, setPreviousAddress] = useState('')
   const onChange = (_, data) =>
@@ -15,15 +22,18 @@ export default function Main(props) {
     setInfo(prev => ({ ...prev, [data.state]: data.value }))
 
   const { key, value } = formState
-  const { name, image, properties } = info
+  const { name, image, maxSupply, properties } = info
   useEffect(() => {
     let unsub = null
 
     const asyncFetch = async () => {
-      if (currentAccount == null||currentAccount.address === previousAddress) {
+      if (
+        currentAccount == null ||
+        currentAccount.address === previousAddress
+      ) {
         return
       }
-      let _info = await contract['fiveDegrees'].query['info'](
+      let { output } = await contract['fiveDegrees'].query['info'](
         currentAccount.address,
         {
           value: 0,
@@ -31,13 +41,12 @@ export default function Main(props) {
         },
         currentAccount.address
       )
-      let p =
-        _info.properties === undefined ||
-        _info.properties === null ||
-        _info.properties === ''
+      let _info = JSON.parse(output.toString())
+      _info.properties =
+        _info.properties === '' || _info.properties.length === 0
           ? {}
           : JSON.parse(_info.properties)
-      setInfo(prev => ({ ...prev, properties: p }))
+      setInfo(prev => ({ ...prev, ..._info }))
       setPreviousAddress(currentAccount.address)
     }
 
@@ -46,7 +55,14 @@ export default function Main(props) {
     return () => {
       unsub && unsub()
     }
-  }, [contract, currentAccount, setInfo, previousAddress, setPreviousAddress])
+  }, [
+    contract,
+    currentAccount,
+    info,
+    setInfo,
+    previousAddress,
+    setPreviousAddress,
+  ])
   const addExtraInfo = () => {
     let p = properties
     p[key] = value
@@ -61,6 +77,7 @@ export default function Main(props) {
   }
   return (
     <Grid.Column>
+      <FiveMetrics />
       <h1>Base Info</h1>
       <Input
         placeholder="name"
@@ -68,6 +85,7 @@ export default function Main(props) {
         type="text"
         label="name"
         state="name"
+        value={name}
         onChange={onChangeInfo}
       />
       <Input
@@ -76,6 +94,7 @@ export default function Main(props) {
         type="text"
         label="image"
         state="image"
+        value={image}
         onChange={onChangeInfo}
       />
       <h1>Properties</h1>
@@ -162,6 +181,7 @@ export default function Main(props) {
           paramFields: [true, true, true],
         }}
       />
+      <FiveMaxSupply maxSupply={maxSupply} />
       <div style={{ hidden: 'hidden', overflowWrap: 'break-word' }}>
         {status}
       </div>

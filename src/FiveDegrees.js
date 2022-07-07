@@ -2,17 +2,18 @@ import React, { useState } from 'react'
 import { Form, Input, Grid, Dropdown } from 'semantic-ui-react'
 import { TxButton } from './substrate-lib/components'
 import { useSubstrateState } from './substrate-lib'
-
+import FiveTransferFrom from './FiveTransferFrom'
+import FiveBatchTransferFrom from './FiveBatchTransferFrom'
 export default function Main(props) {
   const [status, setStatus] = useState(null)
-  const [formState, setFormState] = useState({ addressesTo:  '' })
+  const [formState, setFormState] = useState({ addressesTo: '' })
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
 
   const { addressesTo } = formState
 
-  const { keyring } = useSubstrateState()
+  const { keyring, contract } = useSubstrateState()
   const accounts = keyring.getPairs()
 
   const availableAccounts = []
@@ -26,6 +27,21 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
+      <h1> Approval of the Contract </h1>
+      <TxButton
+        label="approval"
+        type="SIGNED-TXC"
+        setStatus={setStatus}
+        attrs={{
+          palletRpc: 'erc1155',
+          callable: contract['erc1155'].abi.messages[11].method,
+          inputParams: [contract['fiveDegrees'].address],
+          paramFields: [true],
+        }}
+      />
+      <div style={{ overflowWrap: 'break-word' }}>
+        {contract['erc1155'].abi.messages[10].method}
+      </div>
       <h1>Batch Follow or Unfollow</h1>
       <Form>
         <Form.Field>
@@ -52,7 +68,7 @@ export default function Main(props) {
           />
         </Form.Field>
         <Form.Field style={{ textAlign: 'center' }}>
-         <TxButton
+          <TxButton
             label="Batch Follow"
             type="SIGNED-TXC"
             setStatus={setStatus}
@@ -77,6 +93,8 @@ export default function Main(props) {
         </Form.Field>
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </Form>
+      <FiveTransferFrom />
+      <FiveBatchTransferFrom />
     </Grid.Column>
   )
 }

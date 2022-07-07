@@ -1,3 +1,5 @@
+import erc1155Abi from '../abi/erc1155.json'
+import fiveDegrees from '../abi/five_degrees.json'
 import React, { useReducer, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc'
@@ -8,12 +10,13 @@ import { isTestChain } from '@polkadot/util'
 import { TypeRegistry } from '@polkadot/types/create'
 
 import config from '../config'
-import connectContract from '../api/connectContract'
 const parsedQuery = new URLSearchParams(window.location.search)
 const connectedSocket = parsedQuery.get('rpc') || config.PROVIDER_SOCKET
+
+const { ContractPromise } = require('@polkadot/api-contract')
+
 ///
 // Initial state for `useReducer`
-
 const initialState = {
   // These are the states
   socket: connectedSocket,
@@ -49,7 +52,7 @@ const reducer = (state, action) => {
     case 'KEYRING_ERROR':
       return { ...state, keyring: null, keyringState: 'ERROR' }
     case 'SET_CONTRACT':
-      return { ...state, contract: action.payload,contractState: 'READY' }
+      return { ...state, contract: action.payload, contractState: 'READY' }
     case 'CONTRACT_ERROR':
       return { ...state, contract: null, contractState: 'ERROR' }
     case 'SET_CURRENT_ACCOUNT':
@@ -134,15 +137,25 @@ const loadAccounts = (state, dispatch) => {
 
 const connContract = (state, dispatch) => {
   const { api } = state
-
+  const asyncConnectContracts = async (Abi, address) => {
+    let _contract = new ContractPromise(api, Abi, address)
+    return _contract
+  }
   const asyncConnectContract = async () => {
     try {
       await web3Enable(config.APP_NAME)
-    let contracts={};
-      let _contract = await connectContract(api,"fiveDegrees");
-        contracts["fiveDegrees"]=_contract;
-        _contract = await connectContract(api,"erc1155");
-        contracts["erc1155"]=_contract;
+      let contracts = {}
+      let _contract = await asyncConnectContracts(
+        fiveDegrees,
+        config.CONTRACT_ADDRESS
+      )
+      contracts['fiveDegrees'] = _contract
+      let { output } = await _contract.query['contractAddress'](
+        config.CONTRACT_ADDRESS,
+        { value: 0, gasLimit: -1 }
+      )
+      _contract = await asyncConnectContracts(erc1155Abi, output.toString())
+      contracts['erc1155'] = _contract
       dispatch({ type: 'SET_CONTRACT', payload: contracts })
     } catch (e) {
       console.error(e)
@@ -167,12 +180,12 @@ const SubstrateContextProvider = props => {
   connect(state, dispatch)
 
   useEffect(() => {
-    const { apiState, keyringState,contractState } = state
+    const { apiState, keyringState, contractState } = state
     if (apiState === 'READY' && !keyringState && !keyringLoadAll) {
       keyringLoadAll = true
       loadAccounts(state, dispatch)
     }
-    if (apiState === 'READY'&& !contractState && !contractInit) {
+    if (apiState === 'READY' && !contractState && !contractInit) {
       contractInit = true
       connContract(state, dispatch)
     }

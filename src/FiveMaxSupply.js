@@ -4,6 +4,7 @@ import { TxButton } from './substrate-lib/components'
 // import { useSubstrateState } from './substrate-lib'
 
 export default function Main(props) {
+ const {maxSupply}=props;
   const [status, setStatus] = useState(null)
   const [formState, setFormState] = useState({ newMax: '' })
 
@@ -23,7 +24,7 @@ export default function Main(props) {
             label="MaxSupply"
             type="text"
             placeholder="MaxSupply"
-            value={newMax}
+            value={maxSupply}
             state="newMax"
             onChange={onChange}
           />

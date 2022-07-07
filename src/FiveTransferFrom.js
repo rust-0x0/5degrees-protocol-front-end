@@ -16,7 +16,7 @@ export default function Main(props) {
 
   const { addressTo, addressFrom, tokenId } = formState
 
-  const { keyring, contract } = useSubstrateState()
+  const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
 
   const availableAccounts = []
@@ -30,7 +30,7 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
-      <h1>FiveTransferFrom</h1>
+      <h1>TransferFrom</h1>
       <Form>
         <Form.Field>
           <Dropdown
@@ -111,22 +111,6 @@ export default function Main(props) {
             }}
           />
         </Form.Field>
-        <Form.Field style={{ textAlign: 'center' }}>
-          <TxButton
-            label="approval"
-            type="SIGNED-TXC"
-            setStatus={setStatus}
-            attrs={{
-              palletRpc: 'erc1155',
-              callable: contract['erc1155'].abi.messages[11].method,
-              inputParams: [contract['fiveDegrees'].address],
-              paramFields: [true],
-            }}
-          />
-        </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>
-          {contract['erc1155'].abi.messages[10].method}
-        </div>
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </Form>
     </Grid.Column>

@@ -12,11 +12,11 @@ export default function Main(props) {
   const { totalSupply, totalBalance } = metrics
   useEffect(() => {
     let unsub = null
-
     const asyncFetch = async () => {
       if (currentAccount == null) {
         return
       }
+
       let metricsMap = {}
       let { output } = await contract['fiveDegrees'].query['metrics'](
         currentAccount.address,
