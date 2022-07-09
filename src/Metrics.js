@@ -18,7 +18,7 @@ export default function Main(props) {
       }
 
       let metricsMap = {}
-      let { output } = await contract['fiveDegrees'].query['metrics'](
+      let { output } = await contract['hexSpace'].query['metrics'](
         currentAccount.address,
         {
           value: 0,

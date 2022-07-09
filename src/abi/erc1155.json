@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xbf284db51ae766e38779cab0553177d01b376b382d69fdf97db540dcce66f206",
+    "hash": "0xdb045820fb583a9e46f08918ed03f4d291e022f303270fe2cbac72c2bdc91366",
     "language": "ink! 3.3.0",
     "compiler": "rustc 1.62.0-nightly"
   },
@@ -604,7 +604,12 @@
           "label": "burn",
           "mutates": true,
           "payable": false,
-          "returnType": null,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 10
+          },
           "selector": "0xb1efc17b"
         },
         {
@@ -641,7 +646,12 @@
           "label": "burn_batch",
           "mutates": true,
           "payable": false,
-          "returnType": null,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 10
+          },
           "selector": "0xe1900cd8"
         },
         {

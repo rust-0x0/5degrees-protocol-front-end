@@ -15,9 +15,9 @@ import AccountSelector from './AccountSelector'
 import BlockNumber from './BlockNumber'
 import Metadata from './Metadata'
 import NodeInfo from './NodeInfo'
-import FiveFollowingList from './FiveFollowingList'
-import FiveDegrees from './FiveDegrees'
-import FiveProperties from './FiveProperties'
+import FollowingList from './FollowingList'
+import BatchFollow from './BatchFollow'
+import Properties from './Properties'
 
 import Events from './Events'
 
@@ -69,11 +69,11 @@ function Main() {
             <BlockNumber finalized />
           </Grid.Row>
           <Grid.Row stretched>
-            <FiveFollowingList />
+            <FollowingList />
           </Grid.Row>
           <Grid.Row>
-            <FiveDegrees />
-            <FiveProperties />
+            <BatchFollow />
+            <Properties />
           </Grid.Row>
           <Grid.Row>
             <Events />

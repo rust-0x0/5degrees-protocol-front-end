@@ -22,7 +22,7 @@ export default function Main(props) {
         if (account.address === currentAccount.address) {
           continue
         }
-        let { output } = await contract['fiveDegrees'].query['baseInfo'](
+        let { output } = await contract['hexSpace'].query['baseInfo'](
           currentAccount.address,
           { value: 0, gasLimit: -1 },
           account.address
@@ -31,7 +31,7 @@ export default function Main(props) {
         let image = output[1]
         let followed = false
         {
-          let {unsubs, output } = await contract['fiveDegrees'].query['balanceOf'](
+          let {unsubs, output } = await contract['hexSpace'].query['balanceOf'](
             currentAccount.address,
             { value: 0, gasLimit: -1 },
             currentAccount.address,
@@ -110,7 +110,7 @@ export default function Main(props) {
                       type="SIGNED-TXC"
                       setStatus={setStatus}
                       attrs={{
-                        palletRpc: 'fiveDegrees',
+                        palletRpc: 'hexSpace',
                         callable: 'mint',
                         inputParams: [account.address],
                         paramFields: [true],
@@ -122,7 +122,7 @@ export default function Main(props) {
                       type="SIGNED-TXC"
                       setStatus={setStatus}
                       attrs={{
-                        palletRpc: 'fiveDegrees',
+                        palletRpc: 'hexSpace',
                         callable: 'burn',
                         inputParams: [account.address],
                         paramFields: [true],

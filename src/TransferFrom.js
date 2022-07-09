@@ -104,7 +104,7 @@ export default function Main(props) {
             type="SIGNED-TXC"
             setStatus={setStatus}
             attrs={{
-              palletRpc: 'fiveDegrees',
+              palletRpc: 'hexSpace',
               callable: 'safeTransferFrom',
               inputParams: [addressFrom, addressTo, tokenId, 1, ''],
               paramFields: [true],

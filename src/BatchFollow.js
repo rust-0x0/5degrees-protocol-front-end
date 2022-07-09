@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Form, Input, Grid, Dropdown } from 'semantic-ui-react'
 import { TxButton } from './substrate-lib/components'
 import { useSubstrateState } from './substrate-lib'
-import FiveTransferFrom from './FiveTransferFrom'
-import FiveBatchTransferFrom from './FiveBatchTransferFrom'
+import TransferFrom from './TransferFrom'
+
+import Metrics from './Metrics'
 export default function Main(props) {
   const [status, setStatus] = useState(null)
   const [formState, setFormState] = useState({ addressesTo: '' })
@@ -27,6 +28,7 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
+      <Metrics />
       <h1> Approval of the Contract </h1>
       <TxButton
         label="approval"
@@ -34,8 +36,8 @@ export default function Main(props) {
         setStatus={setStatus}
         attrs={{
           palletRpc: 'erc1155',
-          callable: contract['erc1155'].abi.messages[11].method,
-          inputParams: [contract['fiveDegrees'].address],
+          callable: contract['erc1155'].abi.messages[10].method,
+          inputParams: [contract['hexSpace'].address,true],
           paramFields: [true],
         }}
       />
@@ -73,7 +75,7 @@ export default function Main(props) {
             type="SIGNED-TXC"
             setStatus={setStatus}
             attrs={{
-              palletRpc: 'fiveDegrees',
+              palletRpc: 'hexSpace',
               callable: 'mintBatch',
               inputParams: [addressesTo],
               paramFields: [true],
@@ -84,7 +86,7 @@ export default function Main(props) {
             type="SIGNED-TXC"
             setStatus={setStatus}
             attrs={{
-              palletRpc: 'fiveDegrees',
+              palletRpc: 'hexSpace',
               callable: 'burnBatch',
               inputParams: [addressesTo],
               paramFields: [true],
@@ -93,8 +95,7 @@ export default function Main(props) {
         </Form.Field>
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </Form>
-      <FiveTransferFrom />
-      <FiveBatchTransferFrom />
+      <TransferFrom />
     </Grid.Column>
   )
 }

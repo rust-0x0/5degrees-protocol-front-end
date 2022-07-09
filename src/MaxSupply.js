@@ -36,7 +36,7 @@ export default function Main(props) {
               type="SIGNED-TXC"
               setStatus={setStatus}
               attrs={{
-                palletRpc: 'fiveDegrees',
+                palletRpc: 'hexSpace',
                 callable: 'increaseMaxSupply',
                 inputParams: [newMax],
                 paramFields: [true],
@@ -48,7 +48,7 @@ export default function Main(props) {
               type="SIGNED-TXC"
               setStatus={setStatus}
               attrs={{
-                palletRpc: 'fiveDegrees',
+                palletRpc: 'hexSpace',
                 callable: 'decreaseMaxSupply',
                 inputParams: [newMax],
                 paramFields: [true],

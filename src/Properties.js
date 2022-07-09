@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Table, Grid, Button, Input, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import { TxButton } from './substrate-lib/components'
-import FiveMaxSupply from './FiveMaxSupply'
-import FiveMetrics from './FiveMetrics'
+import MaxSupply from './MaxSupply'
+import BatchTransferFrom from './BatchTransferFrom'
 
 export default function Main(props) {
   const [status, setStatus] = useState(null)
@@ -33,7 +33,7 @@ export default function Main(props) {
       ) {
         return
       }
-      let { output } = await contract['fiveDegrees'].query['info'](
+      let { output } = await contract['hexSpace'].query['info'](
         currentAccount.address,
         {
           value: 0,
@@ -77,7 +77,6 @@ export default function Main(props) {
   }
   return (
     <Grid.Column>
-      <FiveMetrics />
       <h1>Base Info</h1>
       <Input
         placeholder="name"
@@ -175,16 +174,17 @@ export default function Main(props) {
         type="SIGNED-TXC"
         setStatus={setStatus}
         attrs={{
-          palletRpc: 'fiveDegrees',
+          palletRpc: 'hexSpace',
           callable: 'setInfo',
           inputParams: [name, image, JSON.stringify(properties)],
           paramFields: [true, true, true],
         }}
       />
-      <FiveMaxSupply maxSupply={maxSupply} />
+      <MaxSupply maxSupply={maxSupply} />
       <div style={{ hidden: 'hidden', overflowWrap: 'break-word' }}>
         {status}
       </div>
+      <BatchTransferFrom />
     </Grid.Column>
   )
 }

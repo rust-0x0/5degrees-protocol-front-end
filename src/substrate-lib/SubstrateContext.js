@@ -1,5 +1,5 @@
 import erc1155Abi from '../abi/erc1155.json'
-import fiveDegrees from '../abi/five_degrees.json'
+import hexSpace from '../abi/hex_space.json'
 import React, { useReducer, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc'
@@ -146,10 +146,10 @@ const connContract = (state, dispatch) => {
       await web3Enable(config.APP_NAME)
       let contracts = {}
       let _contract = await asyncConnectContracts(
-        fiveDegrees,
+        hexSpace,
         config.CONTRACT_ADDRESS
       )
-      contracts['fiveDegrees'] = _contract
+      contracts['hexSpace'] = _contract
       let { output } = await _contract.query['contractAddress'](
         config.CONTRACT_ADDRESS,
         { value: 0, gasLimit: -1 }
