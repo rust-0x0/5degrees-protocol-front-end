@@ -57,6 +57,7 @@ function TxButton({
     // currentAccount is injected from polkadot-JS extension, need to return the addr and signer object.
     // ref: https://polkadot.js.org/docs/extension/cookbook#sign-and-send-a-transaction
     const injector = await web3FromSource(source)
+    console.log(JSON.stringify([address, { signer: injector.signer }]))
     return [address, { signer: injector.signer }]
   }
 
@@ -131,14 +132,15 @@ function TxButton({
     )
     let gas = gasRequired.addn(1)
     setStatus(`Current gas status: ${gas}`)
-    const unsub = await contract[palletRpc].tx[callable](
+    const fromAccts = await getFromAcct()
+    const { hash } = await contract[palletRpc].tx[callable](
       { value: 0, gasLimit: gas },
       ...paras
     )
-      .signAndSend(...fromAcct, txResHandler)
+      .signAndSend(...fromAccts, txResHandler)
       .catch(txErrHandler)
-
-    setUnsub(() => unsub)
+    console.log(hash)
+    // setUnsub(() => unsub)
   }
   const unsignedTx = async () => {
     const transformed = transformParams(paramFields, inputParams)

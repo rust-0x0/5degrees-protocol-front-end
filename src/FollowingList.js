@@ -15,7 +15,7 @@ export default function Main(props) {
 
     const asyncFetch = async () => {
       let followingsMap = []
-      if (currentAccount == null) {
+      if (currentAccount == null||contract==null) {
         return
       }
       for (let account of accounts) {

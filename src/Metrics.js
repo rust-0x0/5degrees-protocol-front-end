@@ -13,7 +13,7 @@ export default function Main(props) {
   useEffect(() => {
     let unsub = null
     const asyncFetch = async () => {
-      if (currentAccount == null) {
+      if (currentAccount == null||contract==null) {
         return
       }
 

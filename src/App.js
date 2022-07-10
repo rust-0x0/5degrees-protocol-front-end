@@ -18,7 +18,6 @@ import NodeInfo from './NodeInfo'
 import FollowingList from './FollowingList'
 import BatchFollow from './BatchFollow'
 import Properties from './Properties'
-
 import Events from './Events'
 
 function Main() {

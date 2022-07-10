@@ -108,14 +108,18 @@ const loadAccounts = (state, dispatch) => {
 
   const asyncLoadAccounts = async () => {
     try {
-      await web3Enable(config.APP_NAME)
+      let allInjected = await web3Enable(config.APP_NAME)
+    if (allInjected.length === 0) {
+        console.error("!!!!! No wallet extention detected!!");
+        return;
+    }
       let allAccounts = await web3Accounts()
 
       allAccounts = allAccounts.map(({ address, meta }) => ({
         address,
         meta: { ...meta, name: `${meta.name} (${meta.source})` },
       }))
-
+     console.log(JSON.stringify(allAccounts))
       // Logics to check if the connecting chain is a dev chain, coming from polkadot-js Apps
       // ref: https://github.com/polkadot-js/apps/blob/15b8004b2791eced0dde425d5dc7231a5f86c682/packages/react-api/src/Api.tsx?_pjax=div%5Bitemtype%3D%22http%3A%2F%2Fschema.org%2FSoftwareSourceCode%22%5D%20%3E%20main#L101-L110
       const { systemChain, systemChainType } = await retrieveChainInfo(api)
@@ -143,7 +147,7 @@ const connContract = (state, dispatch) => {
   }
   const asyncConnectContract = async () => {
     try {
-      await web3Enable(config.APP_NAME)
+    //   await web3Enable("config.APP_NAME")
       let contracts = {}
       let _contract = await asyncConnectContracts(
         hexSpace,
