@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x8b2042f83e3e287ba8a5555ff74d7b9b85dda0e605730e85a7d01f2587e1711d",
+    "hash": "0x579ce98bb19cf1b08b495b61b43a9471dd54844c4973cbd22a4424f2dbb41a25",
     "language": "ink! 3.3.0",
     "compiler": "rustc 1.62.0-nightly"
   },
@@ -286,7 +286,11 @@
           ],
           "docs": [
             " increase your Profile NFT's followers max supply",
-            " newMax:  followers new max supply of Profile NFT"
+            " newMax:  followers new max supply of Profile NFT",
+            "",
+            " # Panics",
+            "",
+            " If `new_max` is less than or equal to   `the_max` ."
           ],
           "label": "increase_max_supply",
           "mutates": true,
@@ -309,7 +313,11 @@
           "docs": [
             " decrease your Profile NFT's followers max supply",
             " # Fields",
-            " newMax:  followers new max supply of Profile NFT"
+            " newMax:  followers new max supply of Profile NFT",
+            "",
+            " # Panics",
+            "",
+            " If `new_max` is greater than or equal to   `the_max` ."
           ],
           "label": "decrease_max_supply",
           "mutates": true,
@@ -556,7 +564,13 @@
             " to charge fees in sub-currencies, for example.",
             "",
             " On success a `TransferSingle` event is emitted.",
-            ""
+            "",
+            "",
+            " # Panics",
+            "",
+            " If  the token_id is the follower of `to`.",
+            " If  `from' is not the follower of `to`.",
+            " If  the total_balance of  `from' is less than `value` ."
           ],
           "label": "safe_transfer_from",
           "mutates": true,
@@ -619,7 +633,14 @@
             " to charge fees in sub-currencies, for example.",
             "",
             " On success a `TransferSingle` event is emitted.",
-            ""
+            "",
+            "",
+            " # Panics",
+            "",
+            " If  the length of `token_ids`  is not equal to  the length of `values`.",
+            " If  the token_id is the follower of `to`.",
+            " If  `from' is not the follower of `to`.",
+            " If  the total_balance of  `from' is less than `value` ."
           ],
           "label": "safe_batch_transfer_from",
           "mutates": true,
@@ -710,6 +731,50 @@
             "type": 17
           },
           "selector": "0x0ef0e2a2"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "new_max",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 6
+              }
+            },
+            {
+              "label": "_the_max",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 6
+              }
+            }
+          ],
+          "docs": [
+            " Query your Profile NFT's followers max supply",
+            " newMax:  followers new max supply of Profile NFT",
+            " theMax:  followers the max supply of Profile NFT"
+          ],
+          "label": "IPayProxy::query_pay",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [],
+            "type": 18
+          },
+          "selector": "0xbc67f5b4"
         }
       ]
     },
@@ -1068,6 +1133,18 @@
             "sequence": {
               "type": 6
             }
+          }
+        }
+      },
+      {
+        "id": 18,
+        "type": {
+          "def": {
+            "tuple": [
+              1,
+              1,
+              6
+            ]
           }
         }
       }
