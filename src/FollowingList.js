@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Grid, Label, Image } from 'semantic-ui-react'
+import { Table, Grid, Label, Image, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import { TxButton } from './substrate-lib/components'
 
@@ -9,13 +9,65 @@ export default function Main(props) {
   const { api, keyring, contract, currentAccount } = useSubstrateState()
   const accounts = keyring.getPairs()
   const [followings, setFollowings] = useState([])
+  const txResHandler = ({ status }) =>
+    status.isFinalized
+      ? console.log(
+          `😉Transaction Block hash: ${status.asFinalized.toString()}`
+        )
+      : console.log(`Transaction status: ${status.type}`)
 
+  const txErrHandler = err =>
+    console.log(`😞 Transaction Failed: ${err.toString()}`)
+
+  const initTestData = async accounts => {
+    let i = 0
+    let images = [
+      '309789.svg',
+      '637488.png',
+      '265806.svg',
+      '1173886.svg',
+      '1579748.svg',
+      '1491444.svg',
+      '1973525.svg',
+      '1526764.svg',
+      '1296788.svg',
+    ]
+    for (let account of accounts) {
+      console.log(account)
+      setStatus(`Current contract transaction status`)
+      let image =
+        'https://img.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/' +
+        images[i]
+      i++
+      let properties = ''
+      let callable = 'setInfo'
+      let palletRpc = 'hexSpace'
+      let paras = [account.meta.name, image, properties]
+      try {
+        const { gasRequired } = await contract[palletRpc].query[callable](
+          account.address,
+          { value: 0, gasLimit: -1 },
+          ...paras
+        )
+        let gas = gasRequired.addn(1)
+        // setStatus(`Current gas status: ${gas}`)
+        const { hash } = await contract[palletRpc].tx[callable](
+          { value: 0, gasLimit: gas },
+          ...paras
+        )
+          .signAndSend(account, txResHandler)
+          .catch(txErrHandler)
+        console.log(hash)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
   useEffect(() => {
     let unsub = null
-
     const asyncFetch = async () => {
       let followingsMap = []
-      if (currentAccount == null||contract==null) {
+      if (currentAccount == null || contract == null) {
         return
       }
       for (let account of accounts) {
@@ -31,13 +83,15 @@ export default function Main(props) {
         let image = output[1]
         let followed = false
         {
-          let {unsubs, output } = await contract['hexSpace'].query['balanceOf'](
+          let { unsubs, output } = await contract['hexSpace'].query[
+            'balanceOf'
+          ](
             currentAccount.address,
             { value: 0, gasLimit: -1 },
             currentAccount.address,
             account.address
           )
-          unsub=unsubs
+          unsub = unsubs
           followed = Number(output.toString()) > Number(0)
         }
         followingsMap.push({
@@ -65,7 +119,9 @@ export default function Main(props) {
     setPreviousAddress,
     setFollowings,
   ])
-
+  const initInfo = async () => {
+    await initTestData(accounts)
+  }
   return (
     <Grid.Column>
       <h1>Followings</h1>
@@ -135,6 +191,15 @@ export default function Main(props) {
           </Table.Body>
         </Table>
       )}
+      <Button
+        basic
+        circular
+        label="InitNFTProfileimagesForTestAccountsOnDevMode"
+        size="mini"
+        color="grey"
+        floated="right"
+        onClick={async () => await initInfo()}
+      />
       <div style={{ overflowWrap: 'break-word' }}>{status}</div>
     </Grid.Column>
   )
