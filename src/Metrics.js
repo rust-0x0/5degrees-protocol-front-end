@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Grid, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
-// import { TxButton } from './substrate-lib/components'
 
 export default function Main(props) {
   const { contract, currentAccount } = useSubstrateState()
@@ -13,7 +12,7 @@ export default function Main(props) {
   useEffect(() => {
     let unsub = null
     const asyncFetch = async () => {
-      if (currentAccount == null||contract==null) {
+      if (currentAccount == null || contract == null) {
         return
       }
 

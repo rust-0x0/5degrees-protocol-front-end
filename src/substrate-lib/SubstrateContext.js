@@ -144,7 +144,7 @@ const connContract = (state, dispatch) => {
     let _contract = new ContractPromise(api, Abi, address)
     return _contract
   }
-  
+
   const asyncConnectContract = async () => {
     try {
       let contracts = {}

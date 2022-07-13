@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Form, Input, Button, Grid } from 'semantic-ui-react'
 import { TxButton } from './substrate-lib/components'
-// import { useSubstrateState } from './substrate-lib'
 
 export default function Main(props) {
- const {maxSupply}=props;
+  const { maxSupply } = props
   const [status, setStatus] = useState(null)
   const [formState, setFormState] = useState({ newMax: '' })
 

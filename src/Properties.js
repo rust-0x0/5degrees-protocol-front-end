@@ -28,7 +28,8 @@ export default function Main(props) {
 
     const asyncFetch = async () => {
       if (
-        currentAccount == null||contract==null ||
+        currentAccount == null ||
+        contract == null ||
         currentAccount.address === previousAddress
       ) {
         return

@@ -36,13 +36,18 @@ export default function Main(props) {
         setStatus={setStatus}
         attrs={{
           palletRpc: 'erc1155',
-          callable: contract && contract['erc1155']&& contract['erc1155'].abi.messages[10].method,
-          inputParams: [contract && contract['hexSpace'].address,true],
+          callable:
+            contract &&
+            contract['erc1155'] &&
+            contract['erc1155'].abi.messages[10].method,
+          inputParams: [contract && contract['hexSpace'].address, true],
           paramFields: [true],
         }}
       />
       <div style={{ overflowWrap: 'break-word' }}>
-        {contract && contract['erc1155'] && contract['erc1155'].abi.messages[10].method}
+        {contract &&
+          contract['erc1155'] &&
+          contract['erc1155'].abi.messages[10].method}
       </div>
       <h1>Batch Follow or Unfollow</h1>
       <Form>
