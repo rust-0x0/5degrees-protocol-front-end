@@ -116,8 +116,7 @@ Run `yarn ` to install packages needed for this App.
 `yarn start` runs the app in the development mode.
 Open http://localhost:8100 to view it in the browser.
 
-
-##### Get gas from ALICE
+##### Get gas from extension account
 
 In `https://polkadot.js.org/apps` Account page, use account  send gas to your extension account.
 
