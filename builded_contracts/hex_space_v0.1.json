@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x579ce98bb19cf1b08b495b61b43a9471dd54844c4973cbd22a4424f2dbb41a25",
+    "hash": "0x89c460fc422b5302b5207ffd82e09355e62e930853ef0e202fc81f19ec7c1719",
     "language": "ink! 3.3.0",
     "compiler": "rustc 1.62.0-nightly"
   },
@@ -565,7 +565,6 @@
             "",
             " On success a `TransferSingle` event is emitted.",
             "",
-            "",
             " # Panics",
             "",
             " If  the token_id is the follower of `to`.",
@@ -633,7 +632,6 @@
             " to charge fees in sub-currencies, for example.",
             "",
             " On success a `TransferSingle` event is emitted.",
-            "",
             "",
             " # Panics",
             "",
