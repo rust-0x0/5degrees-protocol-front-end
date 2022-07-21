@@ -76,6 +76,8 @@ Run `yarn ` to install packages needed for this App.
 `yarn start` runs the app in the development mode.
 Open http://localhost:8100 to view it in the browser.
 
+
+  
 ##### Get gas from extension account
 
 In `https://polkadot.js.org/apps` Account page, use account  send gas to your extension account.
@@ -103,6 +105,11 @@ docker-compose  up -d
 ## view logs
 docker-compose logs -ft
 ```
+### front-end  Test Guide
+
+- [How to follow my Web3.0 friends Tutorial](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/Follow.md)
+- [How to edit the Profile on HexSpaceFrontEnd  Tutorial](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/Profile.md)
+
 
 ## Acknowledgements
 
