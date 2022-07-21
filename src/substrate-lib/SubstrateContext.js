@@ -157,6 +157,12 @@ const connContract = (state, dispatch) => {
         config.CONTRACT_ADDRESS,
         { value: 0, gasLimit: -1 }
       )
+      if (output == null || output === undefined) {
+        console.error(
+          'does not found erc1155 contract address from hex space contract  when call contractAddress method'
+        )
+        dispatch({ type: 'CONTRACT_ERROR' })
+      }
       _contract = await asyncConnectContracts(erc1155Abi, output.toString())
       contracts['erc1155'] = _contract
       dispatch({ type: 'SET_CONTRACT', payload: contracts })

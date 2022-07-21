@@ -22,11 +22,28 @@ import Events from './Events'
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
+  const contextRef = createRef()
+  //   const loaderRef = createRef()
+  // const loaderRef = React.useRef(null);
+  const CustomLoader = React.forwardRef((props, ref) => {
+    return (
+      <Loader {...props} ref={ref}>
+        {props.children}
+      </Loader>
+    )
+  })
+  const CustomDimmer = React.forwardRef((props, ref) => {
+    return (
+      <Dimmer {...props} ref={ref}>
+        {props.children}
+      </Dimmer>
+    )
+  })
 
   const loader = text => (
-    <Dimmer active>
-      <Loader size="small">{text}</Loader>
-    </Dimmer>
+    <CustomDimmer active>
+      <CustomLoader size="small">{text}</CustomLoader>
+    </CustomDimmer>
   )
 
   const message = errObj => (
@@ -51,8 +68,6 @@ function Main() {
       "Loading accounts (please review any extension's authorization)"
     )
   }
-
-  const contextRef = createRef()
 
   return (
     <div ref={contextRef}>

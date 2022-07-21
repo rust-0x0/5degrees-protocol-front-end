@@ -1,43 +1,3 @@
-## Install Rust and the Rust toolchain
-
-#####  1.Install `rustup` by running the following command: 
-
-` curl https://sh.rustup.rs -sSf | sh `
-
-##### 2.Configure your current shell to reload your PATH environment variable so that it includes the Cargo `bin` directory by running the following command: 
-
-` source ~/.cargo/env `
-
-##### 3.Configure the Rust toolchain to default to the latest `stable` version by running the following commands: 
-
-`rustup default stable`
-
-`rustup update`
-
-##### 4. Add the `nightly` release and the `nightly` WebAssembly (`wasm`) targets by running the following commands: 
-
-`rustup update nightly`
-
-`rustup target add wasm32-unknown-unknown --toolchain nightly`
-
-##### 5. Verify your installation by running the following commands: 
-
-`rustc --version`
-`rustup show`
-
-## Setup HexSpaceSocialGraph Protocol Node
-
-### 1. Installing The Substrate Contracts Node
-
- We need to use a Substrate node with the built-in `pallet-contracts` pallet. For this workshop we'll use a pre-configured Substrate node client. 
-
-`cargo install contracts-node --git https://github.com/paritytech/substrate-contracts-node.git --tag v0.3.0 --force --locked`
-
-### 2. Running a Substrate Smart Contracts Node
-
-` substrate-contracts-node --dev  `
-
-
 ### Get source code
 
 Please get the code from `https://github.com/rust-0x0/hex-space-protocol-front-end/tree/milestone-1`
@@ -58,7 +18,7 @@ It's developed with ink!.
 hex-space-protocol-front-end/builded_contracts/
 ```
 
-## Deploy
+## Deploy contracts
 
 The HexSpaceSocialGraph Protocol creates the substrate chain to connect the POLKADOT Ecology, and all contracts are deployed on the HexSpaceSocialGraph dev node. This section explains how to make use of Polkadot JS App to deploy contracts.
 
@@ -66,17 +26,17 @@ Use `https://polkadot.js.org/apps/` upload .contract file to deploy contract.
 
 #### set the node IP and port ( `ws://127.0.0.1:9944` default).
 
-![](./images/deploy1.png)
+![](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy1.png)
 
 #### Upload & Deploy contracts
 
 Enter `Developer-> Contracts` and click Upload & deploy code.
 
-![image](./images/deploy2.png)
+![image](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy2.png)
 
 Select the ERC1155 contract files that required to deploy contract.
 
-![](./images/deploy3.png)
+![](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy3.png)
 
 After you upload the contracts,  click 'copy' icon copy erc1155 hash value.
  you can instantiate the contract on the chain. In substrate, you need to perform the contract’s initialization function, usually new or the default function.
@@ -84,7 +44,7 @@ Select the initialization function call, fill in the initialization parameters, 
 
 ## Initialization & Deploy HexSpace
 
-![](./images/deploy4.png)
+![](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy4.png)
 
 # Setup HexSpaceSocialGraph Protocol Front-end
 
@@ -96,10 +56,10 @@ Please install `Polkadot JS Extension` before you start. You can get it from her
 
 Please  rename `example.env `  the file name to  '.env', and update the correct  contract address in   ```.env ```. 
 #### 1. Click Hex Space contract icon,copy the contract address. 
-![](./images/deploy5.png)
+![](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy5.png)
 #### 2. Replace contract address of key 'REACT_APP_CONTRACT_ADDRESS' in .env 
 
-![](./images/deploy6.png)
+![](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy6.png)
 
 #### 3. Replace connect path
 
@@ -126,7 +86,7 @@ In `https://polkadot.js.org/apps` Account page, use account  send gas to your ex
 docker pull rust0x0/hex-space-protocol-front-end:0.1
 
 # update the correct  contract address to env REACT_APP_CONTRACT_ADDRESS
-docker run -e REACT_APP_CONTRACT_ADDRESS=5H4rkHhc6w1A95GDMDuFoTQ6MZcjxY4N5aHiUrSncXDrSasR -p 8100:8100  rust0x0/hex-space-protocol-front-end:0.1
+docker run -e REACT_APP_PROVIDER_SOCKET=ws://127.0.0.1:9944  -e REACT_APP_CONTRACT_ADDRESS=5H4rkHhc6w1A95GDMDuFoTQ6MZcjxY4N5aHiUrSncXDrSasR -p 8100:8100  rust0x0/hex-space-protocol-front-end:0.1
 
 ```
 
@@ -134,6 +94,7 @@ docker run -e REACT_APP_CONTRACT_ADDRESS=5H4rkHhc6w1A95GDMDuFoTQ6MZcjxY4N5aHiUrS
 update env REACT_APP_CONTRACT_ADDRESS  to the correct  contract address  in docker-compose.yml file 
 ```bash
  environment:
+      - REACT_APP_PROVIDER_SOCKET=ws://127.0.0.1:9944
       - REACT_APP_CONTRACT_ADDRESS=5H4rkHhc6w1A95GDMDuFoTQ6MZcjxY4N5aHiUrSncXDrSasR
 ```
 ```bash
