@@ -33,7 +33,6 @@ export default function Main(props) {
       '1296788.svg',
     ]
     for (let account of accounts) {
-      console.log(account)
       setStatus(`Current contract transaction status`)
       let image =
         'https://img.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/' +

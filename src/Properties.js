@@ -44,7 +44,6 @@ export default function Main(props) {
         currentAccount.address
       )
       let _info = JSON.parse(output.toString())
-      console.log(output.toString(), _info.properties)
       let properties = {}
       if (_info.properties !== '') {
         try {
