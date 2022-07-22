@@ -15,6 +15,7 @@ export default function Main(props) {
     properties: {},
   })
   const [formState, setFormState] = useState({ key: '', value: '' })
+  const [properties, setProperties] = useState({})
   const [previousAddress, setPreviousAddress] = useState('')
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
@@ -22,7 +23,7 @@ export default function Main(props) {
     setInfo(prev => ({ ...prev, [data.state]: data.value }))
 
   const { key, value } = formState
-  const { name, image, maxSupply, properties } = info
+  const { name, image, maxSupply } = info
   useEffect(() => {
     let unsub = null
 
@@ -43,10 +44,17 @@ export default function Main(props) {
         currentAccount.address
       )
       let _info = JSON.parse(output.toString())
-      _info.properties =
-        _info.properties === '' || _info.properties.length === 0
-          ? {}
-          : JSON.parse(_info.properties)
+      console.log(output.toString(), _info.properties)
+      let properties = {}
+      if (_info.properties !== '') {
+        try {
+          properties = JSON.parse(_info.properties)
+        } catch (e) {
+          console.error(e)
+        }
+      }
+
+      setProperties(properties)
       setInfo(prev => ({ ...prev, ..._info }))
       setPreviousAddress(currentAccount.address)
     }
@@ -67,13 +75,15 @@ export default function Main(props) {
   const addExtraInfo = () => {
     let p = properties
     p[key] = value
-    setInfo(prev => ({ ...prev, properties: p }))
+    setProperties(properties)
+    setInfo(prev => ({ ...prev, properties: JSON.stringify(p) }))
     setStatus(JSON.stringify(p))
   }
   const removeExtraInfo = key2 => {
     let p = properties
     delete p[key2]
-    setInfo(prev => ({ ...prev, properties: p }))
+    setProperties(properties)
+    setInfo(prev => ({ ...prev, properties: JSON.stringify(p) }))
     setStatus(JSON.stringify(p))
   }
   return (

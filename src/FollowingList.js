@@ -51,13 +51,13 @@ export default function Main(props) {
         )
         let gas = gasRequired.addn(1)
         // setStatus(`Current gas status: ${gas}`)
-        const { hash } = await contract[palletRpc].tx[callable](
+        const  unsub  = await contract[palletRpc].tx[callable](
           { value: 0, gasLimit: gas },
           ...paras
         )
           .signAndSend(account, txResHandler)
           .catch(txErrHandler)
-        console.log(hash)
+       console.log(unsub)
       } catch (e) {
         console.error(e)
       }

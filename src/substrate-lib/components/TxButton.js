@@ -125,22 +125,26 @@ function TxButton({
     if (callable === 'safeBatchTransferFrom') {
       paras[3] = new Array(paras[2].length).fill(paras[3])
     }
-    const { gasRequired } = await contract[palletRpc].query[callable](
+    const obj = await contract[palletRpc].query[callable](
       fromAcct[0].address,
       { value: 0, gasLimit: -1 },
       ...paras
     )
-    let gas = gasRequired.addn(1)
+    console.log(callable, '=gasRequired=', JSON.stringify(obj))
+    // let gas = obj.gasRequired.addn(1)
+    let gas = obj.gasRequired.addn(100)
+    console.log(callable, '=gas=', gas.toString())
+
     setStatus(`Current gas status: ${gas}`)
     const fromAccts = await getFromAcct()
-    const { hash } = await contract[palletRpc].tx[callable](
+    const unsub = await contract[palletRpc].tx[callable](
       { value: 0, gasLimit: gas },
       ...paras
     )
       .signAndSend(...fromAccts, txResHandler)
       .catch(txErrHandler)
-    console.log(hash)
-    // setUnsub(() => unsub)
+        console.log("unsub==",unsub)
+    setUnsub(() => unsub)
   }
   const unsignedTx = async () => {
     const transformed = transformParams(paramFields, inputParams)
