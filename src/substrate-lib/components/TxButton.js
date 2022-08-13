@@ -124,12 +124,18 @@ function TxButton({
     if (callable === 'safeBatchTransferFrom') {
       paras[3] = new Array(paras[2].length).fill(paras[3])
     }
-    const { gasRequired } = await contract[palletRpc].query[callable](
+    const {gasRequired,gasConsumed,result}= await contract[palletRpc].query[callable](
       fromAcct[0].address,
-      { value: 0, gasLimit: -1 },
+      { gasLimit: -1,value: 0,  },
       ...paras
     )
-    let gas = gasRequired.addn(100)
+    let gas = gasRequired.addn(1)
+    if (!result.isOk){
+    console.log(callable, '=gasRequired=', gasRequired.toHuman(),gasConsumed.toHuman())
+    console.error(callable, '=result is err=', result.toHuman())
+    console.log(callable, '=set gas limit to -1=')
+        gas=-1;
+    }
     setStatus(`Current gas status: ${gas}`)
     const fromAccts = await getFromAcct()
     const unsub = await contract[palletRpc].tx[callable](
