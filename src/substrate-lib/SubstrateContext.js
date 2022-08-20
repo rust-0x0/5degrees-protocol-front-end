@@ -1,5 +1,5 @@
-import erc1155Abi from '../abi/erc1155.json'
-import hexSpace from '../abi/hex_space.json'
+// import erc1155Abi from '../abi/erc1155.json'
+import hexSpace from '../abi/hex_space_social_graph_v0.1.json'
 import React, { useReducer, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc'
@@ -8,6 +8,7 @@ import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
 import { keyring as Keyring } from '@polkadot/ui-keyring'
 import { isTestChain } from '@polkadot/util'
 import { TypeRegistry } from '@polkadot/types/create'
+import { cryptoWaitReady } from '@polkadot/util-crypto'
 
 import config from '../config'
 const parsedQuery = new URLSearchParams(window.location.search)
@@ -108,6 +109,7 @@ const loadAccounts = (state, dispatch) => {
 
   const asyncLoadAccounts = async () => {
     try {
+      await cryptoWaitReady()
       let allInjected = await web3Enable(config.APP_NAME)
       if (allInjected.length === 0) {
         console.error('!!!!! No wallet extention detected!!')
@@ -153,18 +155,6 @@ const connContract = (state, dispatch) => {
         config.CONTRACT_ADDRESS
       )
       contracts['hexSpace'] = _contract
-      let { output } = await _contract.query['contractAddress'](
-        config.CONTRACT_ADDRESS,
-        { value: 0, gasLimit: -1 }
-      )
-      if (output == null || output === undefined) {
-        console.error(
-          'does not found erc1155 contract address from hex space contract  when call contractAddress method'
-        )
-        dispatch({ type: 'CONTRACT_ERROR' })
-      }
-      _contract = await asyncConnectContracts(erc1155Abi, output.toString())
-      contracts['erc1155'] = _contract
       dispatch({ type: 'SET_CONTRACT', payload: contracts })
     } catch (e) {
       console.error(e)

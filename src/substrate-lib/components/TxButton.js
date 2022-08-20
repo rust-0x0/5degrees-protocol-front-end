@@ -5,6 +5,7 @@ import { web3FromSource } from '@polkadot/extension-dapp'
 // import BN from 'bn.js'
 import { useSubstrateState } from '../'
 import utils from '../utils'
+import { cryptoWaitReady } from '@polkadot/util-crypto'
 
 function TxButton({
   attrs = null,
@@ -114,6 +115,8 @@ function TxButton({
   }
 
   const signedTxC = async () => {
+      await cryptoWaitReady()
+
     const fromAcct = await getFromAcct()
     // const transformed = transformParams(paramFields, inputParams)
     // transformed can be empty parameters
@@ -121,11 +124,15 @@ function TxButton({
       `Current contract transaction status: ${JSON.stringify(fromAcct)}`
     )
     let paras = inputParams
-    if (callable === 'safeBatchTransferFrom') {
-      paras[3] = new Array(paras[2].length).fill(paras[3])
+    if (callable === 'safeBatchTransferFromHex') {
+      paras.push(new Array(paras[2].length).fill(1))
+      paras.push('')
+    }else if (callable === 'safeTransferFromHex') {
+        paras.push(1)
+        paras.push('')
     }
     const {gasRequired,gasConsumed,result}= await contract[palletRpc].query[callable](
-      fromAcct[0].address,
+      "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
       { gasLimit: -1,value: 0,  },
       ...paras
     )
@@ -144,7 +151,7 @@ function TxButton({
     )
       .signAndSend(...fromAccts, txResHandler)
       .catch(txErrHandler)
-    console.log('unsub==', unsub)
+    // console.log('unsub==', unsub)
     setUnsub(() => unsub)
   }
   const unsignedTx = async () => {

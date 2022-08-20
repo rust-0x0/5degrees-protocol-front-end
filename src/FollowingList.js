@@ -50,13 +50,15 @@ export default function Main(props) {
         )
         let gas = gasRequired.addn(1)
         // setStatus(`Current gas status: ${gas}`)
-        const  unsub  = await contract[palletRpc].tx[callable](
+         await contract[palletRpc].tx[callable](
           { value: 0, gasLimit: gas },
           ...paras
         )
           .signAndSend(account, txResHandler)
           .catch(txErrHandler)
-       console.log(unsub)
+        // return () => {
+        //   unsub && unsub()
+        // }
       } catch (e) {
         console.error(e)
       }
@@ -83,7 +85,7 @@ export default function Main(props) {
         let followed = false
         {
           let { unsubs, output } = await contract['hexSpace'].query[
-            'balanceOf'
+            'balanceOfHex'
           ](
             currentAccount.address,
             { value: 0, gasLimit: -1 },
@@ -166,7 +168,7 @@ export default function Main(props) {
                       setStatus={setStatus}
                       attrs={{
                         palletRpc: 'hexSpace',
-                        callable: 'mint',
+                        callable: 'mintHex',
                         inputParams: [account.address],
                         paramFields: [true],
                       }}
@@ -178,7 +180,7 @@ export default function Main(props) {
                       setStatus={setStatus}
                       attrs={{
                         palletRpc: 'hexSpace',
-                        callable: 'burn',
+                        callable: 'burnHex',
                         inputParams: [account.address],
                         paramFields: [true],
                       }}

@@ -106,9 +106,9 @@ export default function Main(props) {
             setStatus={setStatus}
             attrs={{
               palletRpc: 'hexSpace',
-              callable: 'safeBatchTransferFrom',
-              inputParams: [addressesFrom, addressesTo, tokenIds, 1, ''],
-              paramFields: [true],
+              callable: 'safeBatchTransferFromHex',
+              inputParams: [addressesFrom, addressesTo, tokenIds],
+              paramFields: [true,true,true],
             }}
           />
         </Form.Field>
