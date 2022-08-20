@@ -115,7 +115,7 @@ function TxButton({
   }
 
   const signedTxC = async () => {
-      await cryptoWaitReady()
+    await cryptoWaitReady()
 
     const fromAcct = await getFromAcct()
     // const transformed = transformParams(paramFields, inputParams)
@@ -127,21 +127,23 @@ function TxButton({
     if (callable === 'safeBatchTransferFromHex') {
       paras.push(new Array(paras[2].length).fill(1))
       paras.push('')
-    }else if (callable === 'safeTransferFromHex') {
-        paras.push(1)
-        paras.push('')
+    } else if (callable === 'safeTransferFromHex') {
+      paras.push(1)
+      paras.push('')
     }
-    const {gasRequired,gasConsumed,result}= await contract[palletRpc].query[callable](
-      "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
-      { gasLimit: -1,value: 0,  },
+    const { gasRequired,  result } = await contract[
+      palletRpc
+    ].query[callable](
+      fromAcct[0],
+      { gasLimit: -1, value: 0 },
       ...paras
     )
     let gas = gasRequired.addn(1)
-    if (!result.isOk){
-    console.log(callable, '=gasRequired=', gasRequired.toHuman(),gasConsumed.toHuman())
-    console.error(callable, '=result is err=', result.toHuman())
-    console.log(callable, '=set gas limit to -1=')
-        gas=-1;
+    if (!result.isOk) {
+
+    
+     
+      gas = -1
     }
     setStatus(`Current gas status: ${gas}`)
     const fromAccts = await getFromAcct()
