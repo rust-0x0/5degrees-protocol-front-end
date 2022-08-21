@@ -1,0 +1,2370 @@
+{
+  "source": {
+    "hash": "0x8bc9f06916c15440d009f503ace9dbc88b02f788b556e712ed5ac4cbbf85a3d4",
+    "language": "ink! 3.3.1",
+    "compiler": "rustc 1.65.0-nightly"
+  },
+  "contract": {
+    "name": "hex_space_social_graph",
+    "version": "0.1.0",
+    "authors": [
+      "lee rust.0x0@gmail.com"
+    ]
+  },
+  "V3": {
+    "spec": {
+      "constructors": [
+        {
+          "args": [],
+          "docs": [
+            "Constructor that initializes the `u32` value to the given `version`.",
+            "the `Hash` value to the given `code_hash`."
+          ],
+          "label": "new",
+          "payable": false,
+          "selector": "0x9bae9d5e"
+        }
+      ],
+      "docs": [
+        " Hex space is a Web3 social network protocol . It aims to ena",
+        " and form a complete combinable, users-owned decentralized social network."
+      ],
+      "events": [
+        {
+          "args": [
+            {
+              "docs": [
+                " operator: operator of transaction"
+              ],
+              "indexed": true,
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 23
+              }
+            },
+            {
+              "docs": [
+                " from: Profile NFT old owner"
+              ],
+              "indexed": true,
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 23
+              }
+            },
+            {
+              "docs": [
+                " to: Profile NFT new owner"
+              ],
+              "indexed": true,
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 23
+              }
+            },
+            {
+              "docs": [
+                " token_id: Profile NFT ID"
+              ],
+              "indexed": false,
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "docs": [
+                " value: Profile NFT value"
+              ],
+              "indexed": false,
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that a token transfer has occured.",
+            "",
+            " This must be emitted even if a zero value transfer occurs.",
+            " While mint (the follow action), parameter from is None, to is follower address, id is serialization of the address being followed.",
+            " While burn (the unfollow action), parameter from is follower's address, to is None, id is serialization of the address being followed.",
+            " eg: value always 1"
+          ],
+          "label": "TransferSingle"
+        },
+        {
+          "args": [
+            {
+              "docs": [
+                " operator: operator of transaction"
+              ],
+              "indexed": true,
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 23
+              }
+            },
+            {
+              "docs": [
+                " from: Profile NFT old owner"
+              ],
+              "indexed": true,
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 23
+              }
+            },
+            {
+              "docs": [
+                " to: Profile NFT new owner"
+              ],
+              "indexed": true,
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 23
+              }
+            },
+            {
+              "docs": [
+                " token_ids: Profile NFT ID's list"
+              ],
+              "indexed": false,
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "docs": [
+                " values: Profile NFT ID value's list"
+              ],
+              "indexed": false,
+              "label": "values",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that a token transfer has occured.",
+            "",
+            " This must be emitted even if a zero value transfer occurs.",
+            " ids is a set of serializations of addresses being followed."
+          ],
+          "label": "TransferBatch"
+        },
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "approved",
+              "type": {
+                "displayName": [
+                  "bool"
+                ],
+                "type": 21
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that an approval event has happened."
+          ],
+          "label": "ApprovalForAll"
+        },
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "ink_prelude",
+                  "string",
+                  "String"
+                ],
+                "type": 12
+              }
+            },
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that a token's URI has been updated."
+          ],
+          "label": "Uri"
+        },
+        {
+          "args": [
+            {
+              "docs": [
+                " account: Profile NFT new owner"
+              ],
+              "indexed": true,
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [
+                " owner: operator of transaction"
+              ],
+              "indexed": true,
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [
+                " token_id: Profile NFT ID"
+              ],
+              "indexed": true,
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that a mint event has happened."
+          ],
+          "label": "Mint"
+        },
+        {
+          "args": [
+            {
+              "docs": [
+                " accounts: Profile NFT new owners"
+              ],
+              "indexed": true,
+              "label": "accounts",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            },
+            {
+              "docs": [
+                " owner: operator of transaction"
+              ],
+              "indexed": true,
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [
+                " token_ids: Profile NFT ID's list"
+              ],
+              "indexed": true,
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that a mintbatch event has happened."
+          ],
+          "label": "MintBatch"
+        },
+        {
+          "args": [
+            {
+              "docs": [
+                " account: Profile NFT new owner"
+              ],
+              "indexed": true,
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [
+                " owner: operator of transaction"
+              ],
+              "indexed": true,
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [
+                " token_id: Profile NFT ID"
+              ],
+              "indexed": true,
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that a mintbatch event has happened."
+          ],
+          "label": "Burn"
+        },
+        {
+          "args": [
+            {
+              "docs": [
+                " accounts: Profile NFT owners"
+              ],
+              "indexed": true,
+              "label": "accounts",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            },
+            {
+              "docs": [
+                " owner: operator of transaction"
+              ],
+              "indexed": true,
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [
+                " token_ids: Profile NFT ID's list"
+              ],
+              "indexed": true,
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            }
+          ],
+          "docs": [
+            " Indicate that a mintbatch event has happened."
+          ],
+          "label": "BurnBatch"
+        }
+      ],
+      "messages": [
+        {
+          "args": [
+            {
+              "label": "name",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 12
+              }
+            },
+            {
+              "label": "image",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 12
+              }
+            },
+            {
+              "label": "properties",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 12
+              }
+            }
+          ],
+          "docs": [
+            " Sets the protocol info of the contract to the given name, image, properties.",
+            " # Fields",
+            " name: name of Profile NFT",
+            " image: avatar of Profile NFT",
+            " properties: extension data of Profile NFT"
+          ],
+          "label": "set_protocol_info",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xad21a598"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " Query base info of Profile NFT, return name and image.",
+            " # Fields",
+            " account: The given account."
+          ],
+          "label": "base_info",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [],
+            "type": 14
+          },
+          "selector": "0x0e938124"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " Query info of Profile NFT, return TokenURIInfo.",
+            " # Fields",
+            " account: The given account."
+          ],
+          "label": "info",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "TokenURIInfo"
+            ],
+            "type": 11
+          },
+          "selector": "0x0190e5ac"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " Query Profile NFT followings and followers.",
+            " # Fields",
+            " account: which Profile NFT query",
+            " # Returns",
+            " tokenSupply: followers of Profile NFT",
+            " totalBalance:followings of Profile NFT"
+          ],
+          "label": "metrics",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [],
+            "type": 15
+          },
+          "selector": "0x1d3208fb"
+        },
+        {
+          "args": [
+            {
+              "label": "proxy",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " Set pay proxy of the given account Id."
+          ],
+          "label": "set_pay_proxy",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xfbd41b59"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Get pay proxy of the contract."
+          ],
+          "label": "pay_proxy",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "AccountId"
+            ],
+            "type": 2
+          },
+          "selector": "0x6bfdf2c6"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Get pay proxy of the ERC1155 instance contract address."
+          ],
+          "label": "contract_address",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "AccountId"
+            ],
+            "type": 2
+          },
+          "selector": "0x09c19fa9"
+        },
+        {
+          "args": [
+            {
+              "label": "name",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 12
+              }
+            },
+            {
+              "label": "image",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 12
+              }
+            },
+            {
+              "label": "properties",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 12
+              }
+            }
+          ],
+          "docs": [
+            " Set you owner NFT info",
+            " # Fields",
+            " name:  name of Profile NFT",
+            " image: avatar of Profile NFT",
+            " properties:   other info of Profile NFT"
+          ],
+          "label": "set_info",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x4a382092"
+        },
+        {
+          "args": [
+            {
+              "label": "new_max",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " increase your Profile NFT's followers max supply",
+            " newMax:  followers new max supply of Profile NFT",
+            "",
+            " # Panics",
+            "",
+            " If `new_max` is less than or equal to   `the_max` ."
+          ],
+          "label": "increase_max_supply",
+          "mutates": true,
+          "payable": true,
+          "returnType": null,
+          "selector": "0xfbc271c8"
+        },
+        {
+          "args": [
+            {
+              "label": "new_max",
+              "type": {
+                "displayName": [
+                  "u128"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " decrease your Profile NFT's followers max supply",
+            " # Fields",
+            " newMax:  followers new max supply of Profile NFT",
+            "",
+            " # Panics",
+            "",
+            " If `new_max` is greater than or equal to   `the_max` ."
+          ],
+          "label": "decrease_max_supply",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x40b4dad4"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " following which address",
+            " # Fields",
+            " account: followed address"
+          ],
+          "label": "mint_hex",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x9625d875"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " following which address",
+            " # Fields",
+            " account: followed address"
+          ],
+          "label": "mint_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x36abde61"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            }
+          ],
+          "docs": [
+            " following of batch",
+            " # Fields",
+            " accounts:  followed address list"
+          ],
+          "label": "mint_batch",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x7e4353fc"
+        },
+        {
+          "args": [
+            {
+              "label": "accounts",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            }
+          ],
+          "docs": [
+            " following of batch by origin",
+            " # Fields",
+            " accounts:  followed address list"
+          ],
+          "label": "mint_batch_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x589fdd8a"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " unfollow which address",
+            " # Fields",
+            " account:  unfollowed address"
+          ],
+          "label": "burn_hex",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x2db5b82e"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " unfollow which address by origin",
+            " # Fields",
+            " account:  unfollowed address"
+          ],
+          "label": "burn_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x36ce1228"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            }
+          ],
+          "docs": [
+            " unfollow of batch",
+            " # Fields",
+            " accounts: unfollowed address list"
+          ],
+          "label": "burn_batch_hex",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xcb554753"
+        },
+        {
+          "args": [
+            {
+              "label": "accounts",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            }
+          ],
+          "docs": [
+            " unfollow of batch by origin",
+            " # Fields",
+            " accounts: unfollowed address list"
+          ],
+          "label": "burn_batch_by_origin",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xe3eca242"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 17
+              }
+            }
+          ],
+          "docs": [
+            " Transfers `value` tokens on the behalf of `from` to the account `to`.",
+            "",
+            " This can be used to allow a contract to transfer tokens on ones behalf and/or",
+            " to charge fees in sub-currencies, for example.",
+            "",
+            " On success a `TransferSingle` event is emitted.",
+            "",
+            " # Panics",
+            "",
+            " If  the token_id is the follower of `to`.",
+            " If  `from' is not the follower of `to`.",
+            " If  the total_balance of  `from' is less than `value` ."
+          ],
+          "label": "safe_transfer_from_hex",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xbe3b172c"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            },
+            {
+              "label": "values",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "label": "data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 17
+              }
+            }
+          ],
+          "docs": [
+            " Batch transfers `values` token ids on the behalf of `from` to the account `to`.",
+            "",
+            " This can be used to allow a contract to transfer tokens on ones behalf and/or",
+            " to charge fees in sub-currencies, for example.",
+            "",
+            " On success a `TransferSingle` event is emitted.",
+            "",
+            " # Panics",
+            "",
+            " If  the length of `token_ids`  is not equal to  the length of `values`.",
+            " If  the token_id is the follower of `to`.",
+            " If  `from' is not the follower of `to`.",
+            " If  the total_balance of  `from' is less than `value` ."
+          ],
+          "label": "safe_batch_transfer_from_hex",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0xe8de646d"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " Find out follow or not through the method `balanc_of`, it represents being followed or following if return value is larger than 0.",
+            " # Field",
+            " account is the address trigger the follow action, token_id is the address of the account being followed.",
+            " eg: (\"$(address)\")) or hexadecimal to 10 interpretations.",
+            " Query if is being followed：",
+            " Like if A is being followed by B -> balance_of(B,A)",
+            " Query if is following：",
+            " Like if A is following B -> balance_of(A,B)"
+          ],
+          "label": "balance_of_hex",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Balance"
+            ],
+            "type": 5
+          },
+          "selector": "0x5bf949ee"
+        },
+        {
+          "args": [
+            {
+              "label": "owners",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            }
+          ],
+          "docs": [
+            " Find out follow or not through the method `balance_of_batch`, it represents being followed or following if return values is larger than 0.",
+            " # Field",
+            " `owners` is the addresses trigger the follow action,` token_ids` is the addresses of the accounts being followed.",
+            " eg: (\"$(address)\")) or hexadecimal to 10 interpretations.",
+            " Query if is being followed：",
+            " Like if A is being followed by B -> balance_of_batch([B],[A])",
+            " Query if is following：",
+            " Like if A is following B -> balance_of_batch([A],[B])"
+          ],
+          "label": "balance_of_batch_hex",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 18
+          },
+          "selector": "0xab89d06a"
+        },
+        {
+          "args": [
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Create the initial supply for a token.",
+            "",
+            " The initial supply will be provided to the caller (a.k.a the minter), and the",
+            " `token_id` will be assigned by the smart contract.",
+            "",
+            " Note that as implemented anyone can create tokens. If you were to instantiate",
+            " this contract in a production environment you'd probably want to lock down",
+            " the addresses that are allowed to create tokens."
+          ],
+          "label": "create",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "TokenId"
+            ],
+            "type": 5
+          },
+          "selector": "0xab700a1b"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Mint a `value` amount of `token_id` tokens.",
+            "",
+            " It is assumed that the token has already been `create`-ed. The newly minted supply will",
+            " be assigned to the caller (a.k.a the minter).",
+            "",
+            " Note that as implemented anyone can mint tokens. If you were to instantiate",
+            " this contract in a production environment you'd probably want to lock down",
+            " the addresses that are allowed to mint tokens."
+          ],
+          "label": "mint",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0xcfdd9aa2"
+        },
+        {
+          "args": [
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Mint a `value` amount of `token_id` tokens to the given account.",
+            "",
+            " The newly minted supply will",
+            " be assigned to the given account.",
+            "",
+            " Note that as implemented anyone can mint tokens. If you were to instantiate",
+            " this contract in a production environment you'd probably want to lock down",
+            " the addresses that are allowed to mint tokens."
+          ],
+          "label": "mint_to",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0x1d2f13c5"
+        },
+        {
+          "args": [
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "label": "values",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            }
+          ],
+          "docs": [
+            " Batch mint these `values` amount of `token_ids` tokens to the given account.",
+            "",
+            " The newly minted supply will",
+            " be assigned to the given account.",
+            "",
+            " Note that as implemented anyone can mint tokens. If you were to instantiate",
+            " this contract in a production environment you'd probably want to lock down",
+            " the addresses that are allowed to mint tokens."
+          ],
+          "label": "mint_to_batch",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0xf7d091b2"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Deletes an existing token.",
+            " Deletes `value` tokens on the behalf of `from`.",
+            "",
+            " This can be used to allow a contract to delete tokens on ones behalf and/or",
+            " to charge fees in sub-currencies."
+          ],
+          "label": "burn",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0xb1efc17b"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "label": "values",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            }
+          ],
+          "docs": [
+            " Deletes the existing tokens.",
+            " Deletes `values` tokens on the behalf of `from`.",
+            "",
+            " This can be used to allow a contract to delete tokens on ones behalf and/or",
+            " to charge fees in sub-currencies."
+          ],
+          "label": "burn_batch",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0xe1900cd8"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 17
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155::safe_transfer_from",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0x5324d556"
+        },
+        {
+          "args": [
+            {
+              "label": "from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "label": "values",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "label": "data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 17
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155::safe_batch_transfer_from",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0xf7f5fd62"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155::balance_of",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Balance"
+            ],
+            "type": 5
+          },
+          "selector": "0x164b9ba0"
+        },
+        {
+          "args": [
+            {
+              "label": "owners",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 16
+              }
+            },
+            {
+              "label": "token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155::balance_of_batch",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 18
+          },
+          "selector": "0x221b4f73"
+        },
+        {
+          "args": [
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "approved",
+              "type": {
+                "displayName": [
+                  "bool"
+                ],
+                "type": 21
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155::set_approval_for_all",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 19
+          },
+          "selector": "0x332ba788"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155::is_approved_for_all",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bool"
+            ],
+            "type": 21
+          },
+          "selector": "0x36034d3e"
+        },
+        {
+          "args": [
+            {
+              "label": "_operator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "_from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "_token_id",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "_value",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "_data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 17
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155TokenReceiver::on_received",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 17
+          },
+          "selector": "0xf23a6e61"
+        },
+        {
+          "args": [
+            {
+              "label": "_operator",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "_from",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "_token_ids",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "label": "_values",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 18
+              }
+            },
+            {
+              "label": "_data",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 17
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Erc1155TokenReceiver::on_batch_received",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Vec"
+            ],
+            "type": 17
+          },
+          "selector": "0xbc197c81"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "new_max",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "_the_max",
+              "type": {
+                "displayName": [
+                  "TokenId"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Query your Profile NFT's followers max supply",
+            " newMax:  followers new max supply of Profile NFT",
+            " theMax:  followers the max supply of Profile NFT"
+          ],
+          "label": "IPayProxy::query_pay",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [],
+            "type": 22
+          },
+          "selector": "0xbc67f5b4"
+        }
+      ]
+    },
+    "storage": {
+      "struct": {
+        "fields": [
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "balances"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0100000000000000000000000000000000000000000000000000000000000000",
+                "ty": 7
+              }
+            },
+            "name": "approvals"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0200000000000000000000000000000000000000000000000000000000000000",
+                "ty": 5
+              }
+            },
+            "name": "token_id_nonce"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                "ty": 10
+              }
+            },
+            "name": "_uri"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0400000000000000000000000000000000000000000000000000000000000000",
+                "ty": 13
+              }
+            },
+            "name": "_token_supply"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0500000000000000000000000000000000000000000000000000000000000000",
+                "ty": 13
+              }
+            },
+            "name": "_total_balance"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0600000000000000000000000000000000000000000000000000000000000000",
+                "ty": 2
+              }
+            },
+            "name": "pay_proxy"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0700000000000000000000000000000000000000000000000000000000000000",
+                "ty": 2
+              }
+            },
+            "name": "contract_addr"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0800000000000000000000000000000000000000000000000000000000000000",
+                "ty": 2
+              }
+            },
+            "name": "owner"
+          }
+        ]
+      }
+    },
+    "types": [
+      {
+        "id": 0,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 6,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 1
+            },
+            {
+              "name": "V",
+              "type": 5
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 1,
+        "type": {
+          "def": {
+            "tuple": [
+              2,
+              5
+            ]
+          }
+        }
+      },
+      {
+        "id": 2,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 3,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "AccountId"
+          ]
+        }
+      },
+      {
+        "id": 3,
+        "type": {
+          "def": {
+            "array": {
+              "len": 32,
+              "type": 4
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "type": {
+          "def": {
+            "primitive": "u8"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "type": {
+          "def": {
+            "primitive": "u128"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 3,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_primitives",
+            "Key"
+          ]
+        }
+      },
+      {
+        "id": 7,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 6,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 8
+            },
+            {
+              "name": "V",
+              "type": 9
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "type": {
+          "def": {
+            "tuple": [
+              2,
+              2
+            ]
+          }
+        }
+      },
+      {
+        "id": 9,
+        "type": {
+          "def": {
+            "tuple": []
+          }
+        }
+      },
+      {
+        "id": 10,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 6,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 2
+            },
+            {
+              "name": "V",
+              "type": 11
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 11,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "name",
+                  "type": 12,
+                  "typeName": "String"
+                },
+                {
+                  "name": "image",
+                  "type": 12,
+                  "typeName": "String"
+                },
+                {
+                  "name": "max_supply",
+                  "type": 5,
+                  "typeName": "u128"
+                },
+                {
+                  "name": "properties",
+                  "type": 12,
+                  "typeName": "String"
+                }
+              ]
+            }
+          },
+          "path": [
+            "hex_space_social_graph",
+            "hex_space",
+            "TokenURIInfo"
+          ]
+        }
+      },
+      {
+        "id": 12,
+        "type": {
+          "def": {
+            "primitive": "str"
+          }
+        }
+      },
+      {
+        "id": 13,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 6,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 2
+            },
+            {
+              "name": "V",
+              "type": 5
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 14,
+        "type": {
+          "def": {
+            "tuple": [
+              12,
+              12
+            ]
+          }
+        }
+      },
+      {
+        "id": 15,
+        "type": {
+          "def": {
+            "tuple": [
+              5,
+              5
+            ]
+          }
+        }
+      },
+      {
+        "id": 16,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 17,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 4
+            }
+          }
+        }
+      },
+      {
+        "id": 18,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 5
+            }
+          }
+        }
+      },
+      {
+        "id": 19,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 9
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 20
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 9
+            },
+            {
+              "name": "E",
+              "type": 20
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 20,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "UnexistentToken"
+                },
+                {
+                  "index": 1,
+                  "name": "ZeroAddressTransfer"
+                },
+                {
+                  "index": 2,
+                  "name": "NotApproved"
+                },
+                {
+                  "index": 3,
+                  "name": "InsufficientBalance"
+                },
+                {
+                  "index": 4,
+                  "name": "SelfApproval"
+                },
+                {
+                  "index": 5,
+                  "name": "BatchTransferMismatch"
+                },
+                {
+                  "index": 6,
+                  "name": "TransactionFailed"
+                }
+              ]
+            }
+          },
+          "path": [
+            "hex_space_social_graph",
+            "hex_space",
+            "Error"
+          ]
+        }
+      },
+      {
+        "id": 21,
+        "type": {
+          "def": {
+            "primitive": "bool"
+          }
+        }
+      },
+      {
+        "id": 22,
+        "type": {
+          "def": {
+            "tuple": [
+              2,
+              2,
+              5
+            ]
+          }
+        }
+      },
+      {
+        "id": 23,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "None"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 2
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Some"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 2
+            }
+          ],
+          "path": [
+            "Option"
+          ]
+        }
+      }
+    ]
+  }
+}
