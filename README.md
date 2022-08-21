@@ -23,8 +23,6 @@
 
 ##  1. <a name='DeployConfigGuide'></a>Deploy  & Config Guide
 ###  1.1. <a name='KeySteps'></a>Key Steps
-- Manual Deploy erc1155 contract 
-- Copy  erc1155 contract Code Hash as init parameter 'code_hash' of deploying hex space contract .
 - Manual config  REACT_APP_PROVIDER_SOCKET=ws://127.0.0.1:9944  -e REACT_APP_CONTRACT_ADDRESS=5H4rkHhc6w1A95GDMDuFoTQ6MZcjxY4N5aHiUrSncXDrSasR  in the  .env file 
   Or Set docker environment -e REACT_APP_PROVIDER_SOCKET=ws://127.0.0.1:9944  -e REACT_APP_CONTRACT_ADDRESS=5H4rkHhc6w1A95GDMDuFoTQ6MZcjxY4N5aHiUrSncXDrSasR  
   Or update docker-compose.yml  environment:
@@ -67,11 +65,6 @@ Enter `Developer-> Contracts` and click Upload & deploy code.
 
 ![image](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy2.png)
 
-Select the ERC1155 contract files that required to deploy contract.
-
-![](https://github.com/rust-0x0/hex-space-protocol-docs/blob/milestone-1/images/deploy3.png)
-
-After you upload the contracts,  click 'copy' icon copy erc1155 hash value.
  you can instantiate the contract on the chain. In substrate, you need to perform the contract’s initialization function, usually new or the default function.
 Select the initialization function call, fill in the initialization parameters, set the main contract administrator, and set the contract initial balance, click `Deploy`. Click `Deploy `, and `Submit and Sign`
 

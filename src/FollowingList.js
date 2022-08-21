@@ -32,6 +32,7 @@ export default function Main(props) {
       '1526764.svg',
       '1296788.svg',
     ]
+    let unsubs = []
     for (let account of accounts) {
       setStatus(`Current contract transaction status`)
       let image =
@@ -50,18 +51,22 @@ export default function Main(props) {
         )
         let gas = gasRequired.addn(1)
         // setStatus(`Current gas status: ${gas}`)
-         await contract[palletRpc].tx[callable](
+        let unsub = await contract[palletRpc].tx[callable](
           { value: 0, gasLimit: gas },
           ...paras
         )
           .signAndSend(account, txResHandler)
           .catch(txErrHandler)
+        unsubs.push(() => {
+          unsub && unsub()
+        })
         // return () => {
         //   unsub && unsub()
         // }
       } catch (e) {
         console.error(e)
       }
+      return unsubs
     }
   }
   useEffect(() => {

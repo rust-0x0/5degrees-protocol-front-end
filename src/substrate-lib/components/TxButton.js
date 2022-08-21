@@ -48,10 +48,10 @@ function TxButton({
   const getFromAcct = async () => {
     const {
       address,
-      meta: { source, isInjected },
+      meta: { source, isTesting },
     } = currentAccount
 
-    if (!isInjected) {
+    if (isTesting) {
       return [currentAccount]
     }
 
@@ -131,18 +131,16 @@ function TxButton({
       paras.push(1)
       paras.push('')
     }
-    const { gasRequired,  result } = await contract[
-      palletRpc
-    ].query[callable](
-      fromAcct[0],
+    let address =
+      fromAcct[0].address === undefined ? fromAcct[0] : fromAcct[0].address
+    const { gasRequired, result } = await contract[palletRpc].query[callable](
+      address,
       { gasLimit: -1, value: 0 },
       ...paras
     )
     let gas = gasRequired.addn(1)
     if (!result.isOk) {
-
-    
-     
+      console.error('==err==', result.err)
       gas = -1
     }
     setStatus(`Current gas status: ${gas}`)
